@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue JS title</title>
+  </head>
+  <body>
+
+    <!-- Vue has total control in this div -->
+    <div id="myApp">
+      <h3>Batman Quotes: <small>{{ newQuote }}</small></h3>
+
+      <input v-model="newQuote" type="text" v-on:keypress.enter="addQuote">
+
+      <hr>
+
+      <ul>
+        <li v-for="({quote, author}, index) in quotes">
+          <strong>{{ index + 1}}  {{ quote }}</strong>
+          <br>
+          <small v-if="author">- {{ author}}</small>
+          <br>
+          <small v-show="author">- {{ author}}</small>
+        </li>
+      </ul>
+      
+    </div>
+
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
