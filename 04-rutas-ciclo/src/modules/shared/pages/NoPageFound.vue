@@ -1,3 +1,4 @@
 <template>
-  <h1>404 Not page found</h1>
+  <h1>No Page Found</h1>
+  <h3>404</h3>
 </template>

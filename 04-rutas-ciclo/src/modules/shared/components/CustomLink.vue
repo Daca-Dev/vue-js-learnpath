@@ -1,7 +1,17 @@
 <template>
-  <a v-if="isExternalLink" :href="link.to" target="_blank">{{ link.name }}</a>
-  <router-link v-else :to="link.to" v-slot="{ href, isActive }">
-    <a :href="href" :class="isActive ? 'active' : 'link'">{{ link.name }}</a>
+  <a
+    v-if="isExternalLink"
+    target="_blank"
+    class="normal-link"
+    :href="link.to"
+    >{{ link.name }}</a
+  >
+
+  <router-link v-else :to="route" v-slot="{ isActive }">
+    <!-- href, isActive -->
+    <a :class="isActive ? 'is-active' : 'normal-link'">
+      {{ link.name }}
+    </a>
   </router-link>
 </template>
 
@@ -9,6 +19,7 @@
 export default {
   props: {
     link: {
+      type: Object,
       required: true,
     },
   },
@@ -16,15 +27,20 @@ export default {
     isExternalLink() {
       return this.link.to.startsWith("http");
     },
+    route() {
+      return this.link.id === undefined
+        ? { name: this.link.to }
+        : { name: this.link.to, params: { id: this.link.id } };
+    },
   },
 };
 </script>
 
 <style scoped>
-.active {
-  color: #159147;
+.is-active {
+  color: #42b983;
 }
-.link {
-  color: #2a2a2a;
+.normal-link {
+  color: #c6c5c5;
 }
 </style>

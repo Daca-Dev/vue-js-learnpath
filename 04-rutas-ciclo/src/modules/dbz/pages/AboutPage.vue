@@ -1,3 +1,3 @@
 <template>
-  <h1>List Page</h1>
+  <h3>About DBZ</h3>
 </template>
