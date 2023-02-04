@@ -13,34 +13,33 @@
         const app = Vue.createApp({
             data() {
                 return {
-                    text: "Hello Vue JS!",
+                    items: ['uno', 'dos', 'tres']
                 }
             },
-            // provide isn't reactive
-            provide() {
-                return {
-                    otherText: this.text,
-                };
+            template: `
+                <div> 
+                   <ul>
+                    <v-item v-for="(item, idx) in items" :key="idx" v-bind:text="item"></v-item>
+                   </ul>
+                </div>
+            `
+        });
+        // PROPS DOC
+        // https://vuejs.org/guide/components/props.html
+        app.component("v-item", {
+            props: {
+                text: {
+                    type: String,
+                    required: true,
+                },
             },
             template: `
-                <div> {{ text }} </div>
-                <v-child />
-            `
-        });
-        app.component("v-child", {
-            template: `
-            <v-grandson />
-            `
-        });
-        app.component("v-grandson", {
-            inject: ['otherText'],
-            template: `
-            <div>{{ otherText }}</div>
+            <li>
+                {{ text }}
+            </li>
             `
         });
 
-
-        // DOCS -> https://vuejs.org/guide/components/provide-inject.html
         const vm = app.mount("#app");
     </script>
 </body>
