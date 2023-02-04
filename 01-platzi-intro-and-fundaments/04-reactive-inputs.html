@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue JS</title>
+</head>
+<body>
+  <!-- CDN vue script -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <!-- THML element where we going to build our Vue App -->
+  <div id="app"></div>
+
+  <!-- Vue App script -->
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          text: "Hello Vue",
+          text1: "Hello Vue",
+          text2: "Hello Vue",
+        };
+      },
+      methods: {
+        inputHandle(event) {
+          this.text = event.target.value;
+        },
+        inputHandle1(event) {
+          this.text1 = event.target.value;
+        },
+        inputHandle2(event) {
+          this.text2 = event.target.value;
+        },
+      },
+      template: `
+      <div>
+        <p>{{ text }}</p>
+        <input
+          type="text"
+          v-on:input="inputHandle"
+          v-bind:value="text"
+        />
+        <p>{{ text1 }}</p>
+        <input
+          type="text"
+          @input="inputHandle1"
+          :value="text1"
+        />
+        <p>{{ text2 }}</p>
+        <input
+          type="text"
+          v-model="text2"
+        />
+      </div>`,
+    }).mount('#app');
+  </script>
+</body>
+</html>
