@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue JS</title>
+</head>
+<body>
+  <!-- CDN vue script -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <!-- THML element where we going to build our Vue App -->
+  <div id="app"></div>
+
+  <!-- Vue App script -->
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          text: "Puerta Cerrada",
+          openDoor: false,
+        };
+      },
+      watch: {
+        // the watcher name should have the same name tham the variable to watch
+        // the watcher should be small
+        openDoor(value, prevValue) {
+          if (value) {
+            this.text = "Puerta Abierta"
+          } else {
+            this.text = "Puerta Cerrada"
+          }
+        },
+      },
+      template: `
+      <div>
+        <p>{{ text }}</p>
+        <hr>
+        <button @click="openDoor = !openDoor">{{ openDoor ? 'cerrar' : 'abrir'}}</button>
+      </div>`,
+    }).mount('#app');
+  </script>
+</body>
+</html>

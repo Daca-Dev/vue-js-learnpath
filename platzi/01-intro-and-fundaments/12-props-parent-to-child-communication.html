@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@next"></script>
+    <div id="app"></div>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    items: ['uno', 'dos', 'tres']
+                }
+            },
+            template: `
+                <div> 
+                   <ul>
+                    <v-item v-for="(item, idx) in items" :key="idx" v-bind:text="item"></v-item>
+                   </ul>
+                </div>
+            `
+        });
+        // PROPS DOC
+        // https://vuejs.org/guide/components/props.html
+        app.component("v-item", {
+            props: {
+                text: {
+                    type: String,
+                    required: true,
+                },
+            },
+            template: `
+            <li>
+                {{ text }}
+            </li>
+            `
+        });
+
+        const vm = app.mount("#app");
+    </script>
+</body>
+</html>
