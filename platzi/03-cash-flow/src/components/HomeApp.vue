@@ -4,9 +4,11 @@
       <Header></Header>
     </template>
     <template #resume>
-      <Resume :total-amount="999999" :amount="amount" :label="resumeLabel">
+      <Resume :total-amount="totalAmount" :amount="amount" :label="resumeLabel">
         <template #graphic> Graphic </template>
-        <template #action> Action </template>
+        <template #action>
+          <ActionMovement @submit-movement="submitMovement" />
+        </template>
       </Resume>
     </template>
     <template #movements>
@@ -20,6 +22,7 @@ import Layout from '@/components/LayoutPage.vue';
 import Header from '@/components/HeaderPage.vue';
 import Resume from '@/components/ResumenComponent.vue';
 import Movements from '@/components/Movements/GeneralMovements.vue';
+import ActionMovement from '@/components/Action/ActionMovement.vue';
 
 export default {
   components: {
@@ -27,6 +30,7 @@ export default {
     Header,
     Resume,
     Movements,
+    ActionMovement,
   },
   data() {
     return {
@@ -34,15 +38,26 @@ export default {
       resumeLabel: '',
       movements: [
         { id: 1, title: 'test 01', description: 'lorem ipsum', amount: 1000 },
-        { id: 2, title: 'test 02', description: 'lorem ipsum', amount: -2000 },
-        { id: 3, title: 'test 03', description: 'lorem ipsum', amount: 3000 },
-        { id: 4, title: 'test 04', description: 'lorem ipsum', amount: -4000 },
-        { id: 5, title: 'test 05', description: 'lorem ipsum', amount: 5000 },
-        { id: 6, title: 'test 06', description: 'lorem ipsum', amount: -6000 },
-        { id: 7, title: 'test 07', description: 'lorem ipsum', amount: 7000 },
-        { id: 8, title: 'test 08', description: 'lorem ipsum', amount: 8000 },
       ],
     };
+  },
+  methods: {
+    submitMovement(data) {
+      const lastId = this.movements[0]?.id + 1 ?? 1;
+      const newMovement = {
+        id: lastId,
+        title: data.title,
+        description: data.description,
+        amount: data.movementType === 'income' ? data.amount : -1 * data.amount,
+      };
+
+      this.movements.push(newMovement);
+    },
+  },
+  computed: {
+    totalAmount() {
+      return this.movements.reduce((acc, { amount }) => acc + amount, 0);
+    },
   },
 };
 </script>
