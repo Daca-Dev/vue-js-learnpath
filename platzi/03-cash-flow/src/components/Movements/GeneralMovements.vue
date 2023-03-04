@@ -14,11 +14,12 @@
 
 <script setup>
 import MovementDetail from './MovementDetail.vue';
-import { defineProps, toRefs } from 'vue';
+import { defineProps, toRefs, defineEmits } from 'vue';
 
-const remove = (id) => {
-  console.log(`🚀 ~ remove ~ id:`, id);
-  // movements = movements.value.filter(movement => movement.id !== id);
+const emits = defineEmits(['remove-movement']);
+
+const remove = (targetId) => {
+  emits('remove-movement', targetId)
 };
 
 const props = defineProps({

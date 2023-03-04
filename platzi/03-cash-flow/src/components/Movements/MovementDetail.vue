@@ -10,7 +10,9 @@
         src="@/assets/trash-iconsvg.svg"
         :alt="`Delete ${title} entry`"
       />
-      <p :class="[isExpense ? 'red' : 'green']">{{ amountFormatted }}</p>
+      <p :class="[isExpense ? 'red' : 'green']">
+        {{ amountFormatted }}
+      </p>
     </div>
   </div>
 </template>
